@@ -5,16 +5,16 @@
 
 **Terraform project is composed of the following structure:**
 
-`~~├── modules
-│ └── code_pipeline 
-│ └── ecs 
-│ └── networking 
-│ └── rds
-├── pipeline.tf
-├── production.tf
-├── production_key.pub
-├── terraform.tfvars
-└── variables.tf~~`
+`~~├── modules<br />
+│ └── code_pipeline <br />
+│ └── ecs <br />
+│ └── networking <br />
+│ └── rds<br />
+├── pipeline.tf<br />
+├── production.tf<br />
+├── production_key.pub<br />
+├── terraform.tfvars<br />
+└── variables.tf~~`<br />
 
 ![Network Infra](images/ecs-infra.png)
 
