@@ -1,7 +1,7 @@
 
 **_PROJECT IMPLEMENTATION:_** 
 
-![modules Infra](img/ecs-terraform-modules.png)
+![modules Infra](images/ecs-terraform-modules.png)
 
 **Terraform project is composed of the following structure:**
 
@@ -16,7 +16,7 @@
 ├── terraform.tfvars
 └── variables.tf~~`
 
-![Network Infra](img/ecs-infra.png)
+![Network Infra](images/ecs-infra.png)
 
 _``Modules are where we will store the code that handles the creation of a group of resources. It can be reused by all environments (Production, Staging, QA, etc.) without needing to duplicate a lot of code.
 production.tf is the file that defines the e****nvironment itself. It calls the modules passing variables to it.
@@ -44,7 +44,7 @@ this is the part that we define the ECS resources needed for our app.`
 `Next, we need our ECS cluster. Even using Fargate (that doesn’t need any EC2), we need to define a cluster for the application.
 `
 
-![ECS- task Definition](img/deployment.png)
+![ECS- task Definition](images/deployment.png)
 
 **_`The tasks definitions`_**
 `Now, we will define 2 task definitions.
@@ -56,7 +56,7 @@ The definition of the DB migration task is almost the same. We only change the c
 
 **_`The load balancers`_**
 
-![Load Balancers](img/alb.png)
+![Load Balancers](images/alb.png)
 
 **_`Before creating the Services, we need to create the load balancers. They will be on the public subnet and will forward the requests to the ECS service.
 we define that our target group will use HTTP on port 80. We also create a security group to allow access into the port 80 from the internet. After, we create the Application Load Balancer and the listener. To use Fargate, you should use an Application Load Balancer instead an Elastic Load Balancer.**_
@@ -73,9 +73,9 @@ After, we create a CloudWatch metric based on the CPU. If the CPU usage is great
 
 **_`The Pipeline to deploy our app`_**
 
-![Code Pipeline](img/code_pipeline_1.png)
+![Code Pipeline](images/code_pipeline_1.png)
 
-![Code Pipeline](img/code_pipeline_2.png)
+![Code Pipeline](images/code_pipeline_2.png)
 
 _`Our infrastructure to run our Docker app is ready. But it is still boring to deploy it to ECS. We need to manually push our image to the repository and update the task definition with the new image and update the new task definition. We can run it through Terraform, but it could be better if we have a way to push our code to Github in the master branch and it deploys automatically for us.
 Entering, CodePipeline and CodeBuild.
@@ -103,11 +103,11 @@ Production: Gets the artifact from Build stage (imagedefinitions.json) and deplo
 
 **_`point your DNS record to the new load balancer using an ALIAS`_**
 
-![DNS  Name](img/alb_name.png)
+![DNS  Name](images/alb_name.png)
 
 **What is Blue/Green deployment?**
 
-![Blue - Green - Infra](img/blue_green.png)
+![Blue - Green - Infra](images/blue_green.png)
 
 _`Blue/Green deployment is a DevOps practice that aims to reduce downtime on updates by creating a new copy of the desired component, while maintaining the current. 
 Given that, you end with two versions of the system: One with the actual version (blue) and another with a newer one (green). When the new version is up and running, 
@@ -125,19 +125,19 @@ _`terraform init`_
 
 will initalise  the cloud provider and download latest version of api's. In our case it is AWS provider
 
-![terraform int](img/init.png)
+![terraform int](images/init.png)
 
 **_`terraform plan`_**
 
 will do planning and does show how the env looks after exceution.
 
-![terraform plan](img/plan.png)
+![terraform plan](images/plan.png)
 
 **_`terraform apply`_**
 
 will read tfstate file and create the needed provisioning in the cloud
 
-![terraform apply](img/apply.png)
+![terraform apply](images/apply.png)
 
 _**`terraform destroy`**_
 
